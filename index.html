@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>DOOM</title>
-    <script src="https://cdn.jsdelivr.net/gh/js-dos/js-dos@7.0.0/dist/js-dos.js"></script>
-    <link href="https://cdn.jsdelivr.net/gh/js-dos/js-dos@7.0.0/dist/js-dos.css" rel="stylesheet">
+    <script src="https://js-dos.com/v7/build/js-dos.js"></script>
+    <link href="https://js-dos.com/v7/build/js-dos.css" rel="stylesheet">
     <style>
         body { margin: 0; background: black; overflow: hidden; }
         #doom { width: 100vw; height: 100vh; }
@@ -13,19 +13,15 @@
 <body>
     <div id="doom"></div>
     <script>
-        // Verificamos si la librería cargó
-        window.addEventListener("load", () => {
-            if (typeof Dos === 'undefined') {
-                console.error("La librería JS-DOS no cargó. Revisa tu conexión o bloqueadores.");
-                document.body.innerHTML = "<h2 style='color:red;'>Error: La librería no cargó.</h2>";
-                return;
-            }
-
-            Dos(document.getElementById("doom"), {
-                workerThread: true,
-                style: "none"
-            }).run("https://archive.org/download/doom_20260622/doom.jsdos");
+        // Inicialización simplificada
+        jsDOS.configure({
+            wdosboxUrl: "https://js-dos.com/v7/build/wdosbox.js",
+            cycles: 1000,
+            autolock: true
         });
+
+        const container = document.getElementById("doom");
+        Dos(container).run("https://archive.org/download/doom_20260622/doom.jsdos");
     </script>
 </body>
 </html>
