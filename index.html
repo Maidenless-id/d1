@@ -13,11 +13,15 @@
 <body>
     <div id="doom"></div>
     <script>
+        // Inicializamos el contenedor para la v8
         const container = document.getElementById("doom");
         
-        jsDos(container).then(dos => {
-            // Nota que la URL ahora es el nombre del archivo local
-            dos.run("doom.jsdos");
+        // El método correcto en v8 es jsDos(container)
+        jsDos(container).then(ci => {
+            // Usamos un objeto de configuración para la v8
+            ci.run({
+                url: "doom.jsdos" 
+            });
         });
     </script>
 </body>
