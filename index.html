@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>DOOM</title>
-    <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
     <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
+    <link href="https://v8.js-dos.com/latest/js-dos.css" rel="stylesheet">
     <style>
         body { margin: 0; background: black; overflow: hidden; }
         #doom { width: 100vw; height: 100vh; }
@@ -13,16 +13,16 @@
 <body>
     <div id="doom"></div>
     <script>
-        // En la v8, el acceso es diferente.
-        // Esperamos a que el DOM cargue
-        window.addEventListener("load", async () => {
-            const container = document.getElementById("doom");
-            // La v8 utiliza ci.dosRun(url)
-            const ci = await Dos(container, {
-                style: "none"
-            });
-            await ci.run("https://archive.org/download/doom_20260622/doom.jsdos");
-        });
+        // En v8, el componente se inicializa directamente
+        const container = document.getElementById("doom");
+        
+        async function runGame() {
+            // v8 crea una instancia y corre directamente sobre ella
+            const dos = await Dos(container);
+            await dos.run("https://archive.org/download/doom_20260622/doom.jsdos");
+        }
+
+        runGame();
     </script>
 </body>
 </html>
