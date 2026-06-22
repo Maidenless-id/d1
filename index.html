@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>DOOM</title>
-    <script src="https://js-dos.com/6.22/v7/js-dos.js"></script>
-    <link href="https://js-dos.com/6.22/v7/js-dos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/js-dos/js-dos@7.0.0/dist/js-dos.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/js-dos/js-dos@7.0.0/dist/js-dos.css" rel="stylesheet">
     <style>
         body { margin: 0; background: black; overflow: hidden; }
         #doom { width: 100vw; height: 100vh; }
@@ -13,20 +13,19 @@
 <body>
     <div id="doom"></div>
     <script>
-        // Esta es la forma más compatible de inicializar js-dos v7
-        // js-dos inyecta la variable "Dos" globalmente si se carga bien.
-        
-        async function startDoom() {
-            try {
-                const dos = await Dos(document.getElementById("doom"));
-                await dos.run("https://archive.org/download/doom_20260622/doom.jsdos");
-            } catch (e) {
-                console.error("Error al cargar JS-DOS:", e);
-                document.body.innerHTML = "<h2 style='color:white;'>Error de carga: Revisa la consola</h2>";
+        // Verificamos si la librería cargó
+        window.addEventListener("load", () => {
+            if (typeof Dos === 'undefined') {
+                console.error("La librería JS-DOS no cargó. Revisa tu conexión o bloqueadores.");
+                document.body.innerHTML = "<h2 style='color:red;'>Error: La librería no cargó.</h2>";
+                return;
             }
-        }
 
-        startDoom();
+            Dos(document.getElementById("doom"), {
+                workerThread: true,
+                style: "none"
+            }).run("https://archive.org/download/doom_20260622/doom.jsdos");
+        });
     </script>
 </body>
 </html>
