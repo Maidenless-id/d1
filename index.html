@@ -13,14 +13,20 @@
 <body>
     <div id="doom"></div>
     <script>
-        // En la v7 se usa el objeto "emulators" para inicializar
-        emulators.pathPrefix = "https://js-dos.com/6.22/v7/";
+        // Esta es la forma más compatible de inicializar js-dos v7
+        // js-dos inyecta la variable "Dos" globalmente si se carga bien.
         
-        Dos(document.getElementById("doom"), {
-            onprogress: function(stage, total, loaded) {
-                console.log(stage, loaded / total);
+        async function startDoom() {
+            try {
+                const dos = await Dos(document.getElementById("doom"));
+                await dos.run("https://archive.org/download/doom_20260622/doom.jsdos");
+            } catch (e) {
+                console.error("Error al cargar JS-DOS:", e);
+                document.body.innerHTML = "<h2 style='color:white;'>Error de carga: Revisa la consola</h2>";
             }
-        }).run("https://archive.org/download/doom_20260622/doom.jsdos");
+        }
+
+        startDoom();
     </script>
 </body>
 </html>
